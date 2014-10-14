@@ -4,16 +4,17 @@
          * Storing new user
          * returns user details
          */
-       function storeUser($name, $email, $gcm_regid,$imei) {
+       function storeUser($name, $email, $gcm_regid,$imei,$ph_num) {
             // insert user into database
             $result = mysql_query("INSERT INTO gcm_users(
                                        name, email, gcm_regid, 
-                                       imei , created_at) 
+                                       imei ,ph_num,created_at) 
                                      VALUES(
                                        '$name', 
                                        '$email', 
                                        '$gcm_regid',
-                                       '$imei', 
+                                       '$imei',
+                                       '$ph_num',
                                        NOW())"
                                       );
             // check for successful store
@@ -66,6 +67,16 @@
             $result = mysql_query("select * 
                                    FROM gcm_users 
                                    where gcm_regid='$regID'");
+            return $result;
+        }
+
+        /**
+         * Getting users detail by ph_num
+         */
+       function getRegIDUser($regID) {
+            $result = mysql_query("select * 
+                                   FROM gcm_users 
+                                   where ph_num='$ph_num'");
             return $result;
         }
          
