@@ -45,4 +45,5 @@
                 
             // Encode Array To JSON Data
                print_r( json_encode($outputArr));
+               
   ?>
