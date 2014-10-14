@@ -11,6 +11,6 @@
         /*
          * Google Cloud Messaging API Key
          */
-        define("GOOGLE_API_KEY", "AIzaSyA81yS1VSj1WZXY_Txxxxxxx"); // Place your Google API Key
+        define("GOOGLE_API_KEY", "AIzaSyDSFu-uada7tIkEj4_pKfY-hKsvOgpWKTs"); // Place your Google API Key
                                    
     ?> 
