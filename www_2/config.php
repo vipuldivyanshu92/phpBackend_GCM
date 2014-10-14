@@ -1,4 +1,4 @@
-<!--?php
+<?php
      
         /**
          * Database config variables
@@ -13,4 +13,4 @@
          */
         define("GOOGLE_API_KEY", "AIzaSyA81yS1VSj1WZXY_Txxxxxxx"); // Place your Google API Key
                                    
-    ?--> 
+    ?> 
