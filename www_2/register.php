@@ -11,7 +11,7 @@
            $ph_num    = stripUnwantedHtmlEscape($_POST["ph_num"]);
            
            // Send this message to device
-           $message = $nameUser."^Registered on server.";
+           $message = $nameUser."^Registeration success.../n Happy Giffieing";
             
            /**
             * Registering a user device in database
