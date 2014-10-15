@@ -73,7 +73,7 @@
         /**
          * Getting users detail by ph_num
          */
-       function getRegIDUser($regID) {
+       function getPhNumUser($ph_num) {
             $result = mysql_query("select * 
                                    FROM gcm_users 
                                    where ph_num='$ph_num'");
