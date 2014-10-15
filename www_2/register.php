@@ -11,7 +11,7 @@
            $ph_num    = stripUnwantedHtmlEscape($_POST["ph_num"]);
            
            // Send this message to device
-           $message = $nameUser."^Registeration success.../n Happy Giffieing";
+           $message = $nameUser." Registeration success.../n Happy Giffieing";
             
            /**
             * Registering a user device in database
@@ -41,6 +41,6 @@
                
            } else {
                // user details not found
-               echo "Wrong values.";
+               echo "Wrong values";
            }
    ?>
