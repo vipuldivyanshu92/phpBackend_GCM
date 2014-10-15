@@ -35,8 +35,8 @@
                $registration_ids = array($gcmRegID);
                $messageSend = array("message" => $message);
             
-               $result = send_push_notification($registration_ids, $messageSend);
-            
+               //$result = send_push_notification($registration_ids, $messageSend);
+                      echo $nameUser." Registeration successfull.../n Happy Giffieing"
               }//echo $result;
               
                
