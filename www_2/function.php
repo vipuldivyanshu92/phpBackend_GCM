@@ -38,7 +38,7 @@
          * Get user by email
          */
        function getUserByEmail($email) {
-            $result = mysql_query("SELECT * FROM gcm_users WHERE email = '$email' LIMIT 1");
+            $result = mysql_query("SELECT name FROM gcm_users WHERE email = '$email' LIMIT 1");
             return $result;
         }
      
@@ -73,8 +73,8 @@
         /**
          * Getting users detail by ph_num
          */
-       function getPhNumUser($ph_num) {
-            $result = mysql_query("select * 
+       function getUserByPhNum($ph_num) {
+            $result = mysql_query("select name 
                                    FROM gcm_users 
                                    where ph_num='$ph_num'");
             return $result;
