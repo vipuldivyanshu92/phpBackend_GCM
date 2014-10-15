@@ -70,6 +70,17 @@
             return $result;
         }
 
+     /**
+         * Getting users detail by name
+         */
+       function getUserByName($name) {
+            $result = mysql_query("select name 
+                                   FROM gcm_users 
+                                   where name='$name'");
+            return $result;
+        }
+        
+     
         /**
          * Getting users detail by ph_num
          */
