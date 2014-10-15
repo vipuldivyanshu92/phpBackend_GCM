@@ -38,6 +38,7 @@
                $result = send_push_notification($registration_ids, $messageSend);
             
               }//echo $result;
+              
                
            } else {
                // user details not found
