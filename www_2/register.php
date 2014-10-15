@@ -30,12 +30,12 @@
               if(!isUserExisted($emailUser,$gcmRegID))
               {
                // Store user details in db
-               $res = storeUser($nameUser, $emailUser, $gcmRegID,$imei);
+               $res = storeUser($nameUser, $emailUser, $gcmRegID,$imei,$ph_num);
             
-               $registatoin_ids = array($gcmRegID);
+               $registration_ids = array($gcmRegID);
                $messageSend = array("message" => $message);
             
-               $result = send_push_notification($registatoin_ids, $messageSend);
+               $result = send_push_notification($registration_ids, $messageSend);
             
               }//echo $result;
                
