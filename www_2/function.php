@@ -107,9 +107,19 @@
                                       from gcm_users 
                                       WHERE email = '$email'
                                       and gcm_regid = '$gcmRegID'");
-                                       
+            $result2    = mysql_query("SELECT email 
+                                      from gcm_users 
+                                      WHERE name='$name'");
             $NumOfRows = mysql_num_rows($result);
+            $NumOfRows2 = mysql_num_rows($result2);
             if ($NumOfRows > 0) {
+                // user existed
+                return true;
+            } else {
+                // user not existed
+                return false;
+            }
+            if ($NumOfRows2 > 0) {
                 // user existed
                 return true;
             } else {
