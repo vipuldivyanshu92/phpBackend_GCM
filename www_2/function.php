@@ -115,17 +115,14 @@
             if ($NumOfRows > 0) {
                 // user existed
                 return true;
-            } else {
-                // user not existed
-                return false;
             }
             if ($NumOfRows2 > 0) {
                 // user existed
                 return true;
-            } else {
-                // user not existed
-                return false;
-            }
+            } 
+             
+               return false;
+            
         }
          
         /**
