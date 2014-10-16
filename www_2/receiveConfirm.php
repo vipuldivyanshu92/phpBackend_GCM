@@ -3,7 +3,7 @@
 
 require_once('loader.php');
 
-$authId=$_REQUEST['data1'];
+$authId=$_REQUEST['authId'];
 
 
 
