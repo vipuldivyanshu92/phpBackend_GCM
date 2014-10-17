@@ -1,5 +1,36 @@
 ?php
-     
+          /**
+          * Creating a new transfer row in giffie_transfer
+          *
+          */
+          function createTranferRow($name,$iemi,$stimestamp,$destroy) {
+            // insert user into database
+            $gifpath="/images/".$name.$iemi.".gif"
+            $result = mysql_query("INSERT INTO giffie_transfer(
+                                       name, imei, stimestamp, 
+                                       destroy,systimestamp,gifpath,status) 
+                                     VALUES(
+                                       '$name', 
+                                       '$iemi', 
+                                       '$stimestamp',
+                                       '$destroy',
+                                       NOW(),$gifpath,'0')"
+                                      );
+            // check for successful store
+            if ($result) {
+                // get user details
+                $id = mysql_insert_id(); // last inserted id
+                $result = mysql_query("SELECT id,systimestamp FROM giffie_transfer WHERE id = $id") or die(mysql_error());
+                // return user details
+                if (mysql_num_rows($result) > 0) {
+                    return mysql_fetch_array($result);
+                } else {
+                    return false;
+                }
+            } else {
+                return false;
+            }
+        }
        /**
          * Storing new user
          * returns user details
