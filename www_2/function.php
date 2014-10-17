@@ -15,7 +15,7 @@
             //$gifpath="/images/".$name.$iemi.".gif"
             $result = mysql_query("INSERT INTO giffie_transfer(
                                        name, imei, stimestamp, 
-                                       destroy,systimestamp,gifpath,status) 
+                                       destroy,systimestamp,status) 
                                      VALUES(
                                        '$name', 
                                        '$iemi', 
