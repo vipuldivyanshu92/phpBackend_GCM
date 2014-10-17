@@ -27,7 +27,7 @@
             if ($result) {
                 // get user details
                 $id = mysql_insert_id(); // last inserted id
-                $result = mysql_query("SELECT id,systimestamp FROM giffie_transfer WHERE id = $id") or die(mysql_error());
+                $result = mysql_query("SELECT id,systimestamp FROM giffie_transfer WHERE id = '$id'") or die(mysql_error());
                 // return user details
                 if (mysql_num_rows($result) > 0) {
                     return mysql_fetch_array($result);
