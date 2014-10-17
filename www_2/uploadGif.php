@@ -10,7 +10,10 @@ $systimestamp=$_REQUEST['systimestamp'];
 $target_dir = "uploads/";
 $target_dir = $target_dir . basename( $_FILES["uploadFile"]["name"]);
 $uploadOk=1;
-
+if (!($uploadFile_type == "image/gif")) {
+    echo "Sorry, only GIF files are allowed.";
+    $uploadOk = 0;
+}
 if (move_uploaded_file($_FILES["uploadFile"]["tmp_name"], $target_dir)) {
     echo "The file ". basename( $_FILES["uploadFile"]["name"]). " has been uploaded.";
     updateTransferRow($id,$systimestamp);
