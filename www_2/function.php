@@ -1,5 +1,5 @@
 ?php
-          function updateTranseferRow($id,$systimestamp){
+          function updateTransferRow($id,$systimestamp){
                $result = mysql_query("UPDATE giffie_transfer SET  
                                         status='1'
                                      WHERE id='$id' AND 
