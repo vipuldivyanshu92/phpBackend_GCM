@@ -1,0 +1,20 @@
+To recieve a gif, from the given data in the push request we just form a url and 
+do a simple image get request from the server.
+Once this is complete we can send an ackrequest to server to give it the ability to delete it.
+And one it is seen by the user, we can also delete it.
+So for for ten pust notifications recieved, we run 10 seperate threads one after the other 
+which will get those images. And then we delete the image once the user has seen it once, if the delete flag is set.
+
+Hence we need to send to the reciever phone the following things
+*systimestamp
+*sender user
+
+using this two and its own IEMI, it will from an url, which it will use to get the image
+
+the phone must have following tables
+1.friends list
+2.transfer
+
+friends list-> username,userid,status(this status will hold 'ofline','online')
+transfer -> username , systimestamp, 
+is used to sort and list the friends on the send page.
