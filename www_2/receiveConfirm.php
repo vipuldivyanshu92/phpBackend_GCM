@@ -25,5 +25,9 @@ else
   {
   echo ("Deleted $file");
   }
-
+//once all this is done 
+$result = mysql_query("UPDATE giffie_transfer SET  
+                                        status='2'
+                                     WHERE id='$id' AND 
+                                     systimestamp='$systimestamp'")    
 ?>
