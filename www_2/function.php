@@ -1,11 +1,18 @@
 ?php
+          function updateTranseferRow($id,$systimestamp){
+               $result = mysql_query("UPDATE giffie_transfer SET  
+                                        status='1'
+                                     WHERE id='$id' AND 
+                                     systimestamp='$systimestamp'"     
+                    
+          }
           /**
           * Creating a new transfer row in giffie_transfer
           *
           */
           function createTranferRow($name,$iemi,$stimestamp,$destroy) {
             // insert user into database
-            $gifpath="/images/".$name.$iemi.".gif"
+            //$gifpath="/images/".$name.$iemi.".gif"
             $result = mysql_query("INSERT INTO giffie_transfer(
                                        name, imei, stimestamp, 
                                        destroy,systimestamp,gifpath,status) 
@@ -14,7 +21,7 @@
                                        '$iemi', 
                                        '$stimestamp',
                                        '$destroy',
-                                       NOW(),$gifpath,'0')"
+                                       NOW(),'0')"
                                       );
             // check for successful store
             if ($result) {
