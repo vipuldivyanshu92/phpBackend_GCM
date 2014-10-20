@@ -1,19 +1,24 @@
-?php
+<?php
+include_once("loader.php");
+define("GOOGLE_API_KEY", "AIzaSyDSFu-uada7tIkEj4_pKfY-hKsvOgpWKTs"); // Place your Google API Key
+
+
+//echo $db_conx;
           function updateTransferRow($id,$systimestamp){
-               $result = mysql_query("UPDATE giffie_transfer SET  
+               $result = mysqli_query($GLOBALS['db_conx'],"UPDATE giffie_transfers SET  
                                         status='1'
                                      WHERE id='$id' AND 
-                                     systimestamp='$systimestamp'")     
+                                     systimestamp='$systimestamp'"); 
                     
           }
           /**
-          * Creating a new transfer row in giffie_transfer
+          * Creating a new transfer row in giffie_transfers
           *
           */
           function createTranferRow($name,$iemi,$stimestamp,$destroy) {
             // insert user into database
             //$gifpath="/images/".$name.$iemi.".gif"
-            $result = mysql_query("INSERT INTO giffie_transfer(
+            $result = mysqli_query($GLOBALS['db_conx'],"INSERT INTO giffie_transfers(
                                        name, imei, stimestamp, 
                                        destroy,systimestamp,status) 
                                      VALUES(
@@ -26,11 +31,11 @@
             // check for successful store
             if ($result) {
                 // get user details
-                $id = mysql_insert_id(); // last inserted id
-                $result = mysql_query("SELECT id,systimestamp FROM giffie_transfer WHERE id = '$id'") or die(mysql_error());
+                $id = mysqli_insert_id($GLOBALS['db_conx']); // last inserted id
+                $result = mysqli_query($GLOBALS['db_conx'],"SELECT id,systimestamp FROM giffie_transfers WHERE id = '$id'") or die(mysql_error());
                 // return user details
-                if (mysql_num_rows($result) > 0) {
-                    return mysql_fetch_array($result);
+                if (mysqli_num_rows($result) > 0) {
+                    return mysqli_fetch_array($result);
                 } else {
                     return false;
                 }
@@ -42,15 +47,15 @@
          * Storing new user
          * returns user details
          */
-       function storeUser($name, $email, $gcm_regid,$imei,$ph_num) {
+       function storeUser($name, $email,$password,$imei,$ph_num) {
             // insert user into database
-            $result = mysql_query("INSERT INTO gcm_users(
-                                       name, email, gcm_regid, 
+            $result = mysqli_query($GLOBALS['db_conx'],"INSERT INTO giffie_users(
+                                       name, email,password,
                                        imei ,ph_num,created_at) 
                                      VALUES(
                                        '$name', 
-                                       '$email', 
-                                       '$gcm_regid',
+                                       '$email',
+									   '$password',
                                        '$imei',
                                        '$ph_num',
                                        NOW())"
@@ -58,11 +63,11 @@
             // check for successful store
             if ($result) {
                 // get user details
-                $id = mysql_insert_id(); // last inserted id
-                $result = mysql_query("SELECT * FROM gcm_users WHERE id = $id") or die(mysql_error());
+                $id = mysqli_insert_id($GLOBALS['db_conx']); // last inserted id
+                $result = mysqli_query($GLOBALS['db_conx'],"SELECT * FROM giffie_users WHERE id = $id") or die(mysql_error());
                 // return user details
-                if (mysql_num_rows($result) > 0) {
-                    return mysql_fetch_array($result);
+                if (mysqli_num_rows($result) > 0) {
+                    return mysqli_fetch_array($result);
                 } else {
                     return false;
                 }
@@ -76,7 +81,7 @@
          * Get user by email
          */
        function getUserByEmail($email) {
-            $result = mysql_query("SELECT name FROM gcm_users WHERE email = '$email' LIMIT 1");
+            $result = mysqli_query($GLOBALS['db_conx'],"SELECT name FROM giffie_users WHERE email = '$email' LIMIT 1");
             return $result;
         }
      
@@ -84,7 +89,7 @@
          * Getting all registered users
          */
        function getAllUsers() {
-            $result = mysql_query("select * FROM gcm_users");
+            $result = mysqli_query($GLOBALS['db_conx'],"select * FROM giffie_users");
             return $result;
         }
      
@@ -92,9 +97,7 @@
          * Getting users detail by IMEI
          */
        function getIMEIUser($imei) {
-            $result = mysql_query("select * 
-                                   FROM gcm_users 
-                                   where imei='$imei'");
+            $result = mysqli_query($GLOBALS['db_conx'],"SELECT * FROM giffie_users WHERE imei='$imei'");
             return $result;
         }
          
@@ -102,8 +105,8 @@
          * Getting users detail by REGID
          */
        function getRegIDUser($regID) {
-            $result = mysql_query("select * 
-                                   FROM gcm_users 
+            $result = mysqli_query($GLOBALS['db_conx'],"select * 
+                                   FROM giffie_users 
                                    where gcm_regid='$regID'");
             return $result;
         }
@@ -112,8 +115,8 @@
          * Getting users detail by name
          */
        function getUserByName($name) {
-            $result = mysql_query("select name 
-                                   FROM gcm_users 
+            $result = mysqli_query($GLOBALS['db_conx'],"select name 
+                                   FROM giffie_users 
                                    where name='$name'");
             return $result;
         }
@@ -123,8 +126,8 @@
          * Getting users detail by ph_num
          */
        function getUserByPhNum($ph_num) {
-            $result = mysql_query("select name 
-                                   FROM gcm_users 
+            $result = mysqli_query($GLOBALS['db_conx'],"select name 
+                                   FROM giffie_users 
                                    where ph_num='$ph_num'");
             return $result;
         }
@@ -134,12 +137,12 @@
          */
        function getIMEIUserName($imei) {
             $UserName = "";
-            $result = mysql_query("select name 
-                                   FROM gcm_users 
+            $result = mysqli_query($GLOBALS['db_conx'],"select name 
+                                   FROM giffie_users 
                                    where imei='$imei'");
-            if(mysql_num_rows($result))
+            if(mysqli_num_rows($result))
             {
-               while($row = mysql_fetch_assoc($result))
+               while($row = mysqli_fetch_assoc($result))
                {
                    $UserName  = $row['name'];
                }
@@ -150,17 +153,16 @@
         /**
          * Validate user
          */
-      function isUserExisted($email,$gcmRegID) {
+      function isUserExisted($email,$name) {
        
-            $result    = mysql_query("SELECT email 
-                                      from gcm_users 
-                                      WHERE email = '$email'
-                                      and gcm_regid = '$gcmRegID'");
-            $result2    = mysql_query("SELECT email 
-                                      from gcm_users 
+            $result    = mysqli_query($GLOBALS['db_conx'],"SELECT email 
+                                      from giffie_users 
+                                      WHERE email = '$email'");
+            $result2    = mysqli_query($GLOBALS['db_conx'],"SELECT email 
+                                      from giffie_users 
                                       WHERE name='$name'");
-            $NumOfRows = mysql_num_rows($result);
-            $NumOfRows2 = mysql_num_rows($result2);
+            $NumOfRows = mysqli_num_rows($result);
+            $NumOfRows2 = mysqli_num_rows($result2);
             if ($NumOfRows > 0) {
                 // user existed
                 return true;
@@ -241,7 +243,8 @@
             }
         function escapeStrMysql($str){
              
-             return  mysql_real_escape_string($str);
+           return  mysqli_real_escape_string($GLOBALS['db_conx'],$str);
+		   //return $str;
          }  
           
         
